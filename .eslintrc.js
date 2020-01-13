@@ -11,6 +11,7 @@ module.exports = {
     '@nuxtjs',
     'plugin:nuxt/recommended'
   ],
+  ignorePatterns: ["./assets/images/*"],
   // add your custom rules here
   rules: {
   }

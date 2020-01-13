@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+
+html, body {
+    height: 100vh;
+    // width: 100%;
+}
+
+body {
+    background: url("../images/parker-amstutz-691364-unsplash-copy.png") no-repeat 50% 55% fixed;
+    background-size: cover;
+    font-family: 'Lato', sans-serif;
+}
+.channels {
+    width: 262px;
+    background: rgba(37,39,42,0.6);
+}
+
+.sidebar {
+    background: rgba(0,0,0,0.7);
+    height: 100vh;
+    width: 75px;
+    @apply p-3 flex flex-col items-center;
+}
+  
+.server-list {
+    @apply flex-auto py-5;
+}
+
+.chatroom {
+    background: rgba(255,255,255,0.85);
+    flex: 1;
+}
+.chatroom--header {
+  @apply flex justify-between p-4;
+  border-bottom: 1px solid rgba(0,0,0,0.24);
+  div {
+    @apply p-2;
+  }
+  .title {
+    @apply font-bold text-xl;
+  }
+}
