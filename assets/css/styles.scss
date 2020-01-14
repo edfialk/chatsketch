@@ -1,8 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
 
+.text-gray {
+  color: #919191;
+}
+
+.flex-spaced {
+  @apply flex justify-between items-center;
+}
+
 html, body {
     height: 100vh;
-    // width: 100%;
 }
 
 body {
@@ -26,17 +33,9 @@ body {
     @apply flex-auto py-5;
 }
 
-.chatroom {
-    background: rgba(255,255,255,0.85);
-    flex: 1;
+.emoji__sunglasses::before {
+  content: "\1F60E";
 }
-.chatroom--header {
-  @apply flex justify-between p-4;
-  border-bottom: 1px solid rgba(0,0,0,0.24);
-  div {
-    @apply p-2;
-  }
-  .title {
-    @apply font-bold text-xl;
-  }
+.emoji__bus::before {
+  content: "\1F68C";
 }
