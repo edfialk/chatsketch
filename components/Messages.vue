@@ -1,6 +1,9 @@
 <template>
   <div class="chatroom__body">
-    <div v-for="message in messages" :key="message.date">
+    <div v-for="(message, index) in messages" :key="message.date">
+      <div v-if="index > 0 && messageIsNewDay(index)" class="chatroom__date">
+        <span>{{ message.date | date }}</span>
+      </div>
       <div class="message">
         <div class="message__avatar">
           <img :src="message.user.icon" alt="">
@@ -8,7 +11,7 @@
         <div>
           <div class="message__info">
             <span class="message__info__name">{{ message.user.name }}</span>
-            <span class="message__info__date">{{ message.date }}</span>
+            <span class="message__info__date">{{ message.date | time }}</span>
           </div>
           <div v-html="parse(message.text)" class="message__text" />
           <div v-if="message.image" class="message__image">
@@ -18,20 +21,35 @@
         </div>
       </div>
     </div>
-    <div class="chatroom__date">
-      <span>Monday, October 22nd</span>
-    </div>
-    <div class="chatroom__date">
-      <span>Yesterday</span>
-    </div>
-    <div class="chatroom__date">
-      <span>Today</span>
-    </div>
   </div>
 </template>
 
 <script>
+const moment = require('moment')
+
 export default {
+
+  filters: {
+    date (value) {
+      if (value.indexOf('/')) {
+        const p = value.split('/')
+        if (p[0] === 'yesterday') {
+          return 'Yesterday'
+        } else if (p[0] === 'today') {
+          return 'Today'
+        }
+      }
+      return moment(value).format('dddd, MMMM Do')
+    },
+
+    time (value) {
+      if (value.indexOf('/')) {
+        const p = value.split('/')
+        return moment('2020-01-01 ' + p[1]).format('h:mm A')
+      }
+      return moment(value).format('h:mm A')
+    }
+  },
 
   computed: {
     messages () {
@@ -56,12 +74,34 @@ export default {
       ]
       /* eslint-enable */
 
-      const res = replacements.reduce((f, s) => {
+      return replacements.reduce((f, s) => {
         const re = new RegExp(Object.keys(s)[0], 'gi')
         return f.replace(re, s[Object.keys(s)[0]])
       }, message)
+    },
 
-      return res
+    messageIsNewDay (index) {
+      const prev = this.messages[index - 1]
+      const curr = this.messages[index]
+
+      if (!prev || !curr) {
+        return false
+      }
+
+      const prevDate = prev.date
+      const currDate = curr.date
+
+      // I want dates to show up as yesterday/today like design, which I can't do from static date
+      // so I store it as "yesterday"/"today"
+      if (currDate.indexOf('yesterday') && !prevDate.indexOf('yesterday')) {
+        return true
+      }
+
+      if (prevDate.indexOf('yesterday') && currDate.indexOf('today')) {
+        return true
+      }
+
+      return moment(currDate).isAfter(moment(prevDate), 'day')
     }
   }
 
