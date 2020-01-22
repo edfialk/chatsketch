@@ -13,57 +13,35 @@
     <div class="channels-block">
       <div class="channels-block__title flex-spaced">
         <div>CHANNELS</div>
-        <div>11</div>
+        <div>{{ channels.length }}</div>
       </div>
-      <ul class="channels-block__items">
-        <li class="active">#general</li>
-        <li>#support</li>
-        <li>#marketing</li>
-        <li>#thailand</li>
-        <li>#bali</li>
-        <li>#poland</li>
-        <li>#australia</li>
-        <li>#jobs</li>
-        <li>#startups</li>
-        <li>#italy</li>
-        <li>#freelance</li>
+      <ul class="channels-block__items channels__list">
+        <li
+          v-for="channel in channels"
+          :key="channel"
+          :class="{ active: active == channel}"
+        >
+          #{{ channel }}
+        </li>
       </ul>
     </div>
     <div class="channels-block">
       <div class="channels-block__title flex-spaced">
         <div>FRIENDS</div>
-        <div>82</div>
+        <div>{{ friends.length }}</div>
       </div>
       <ul class="channels-block__items friends__list">
-        <li>
-          <div class="friend__icon friend__icon--active" />
-          <img src="https://i.pravatar.cc/32?img=68">
-          <span>Orlando Diggs</span>
-        </li>
-        <li>
-          <div class="friend__icon friend__icon--active" />
-          <img src="https://i.pravatar.cc/32?img=47">
-          <span>Carmen Velasco</span>
-        </li>
-        <li>
+        <li
+          v-for="friend in friends"
+          :key="friend.name"
+          :class="{ active: friend.active }"
+        >
           <div class="friend__icon" />
-          <img src="https://i.pravatar.cc/32?img=49">
-          <span>Marie Jensen</span>
-        </li>
-        <li>
-          <div class="friend__icon" />
-          <img src="https://i.pravatar.cc/32?img=33">
-          <span>Alex Lee</span>
-        </li>
-        <li>
-          <div class="friend__icon" />
-          <img src="https://i.pravatar.cc/32?img=18">
-          <span>Leo Gill</span>
-        </li>
-        <li>
-          <div class="friend__icon" />
-          <img src="https://i.pravatar.cc/32?img=9">
-          <span>Britney Cooper</span>
+          <img
+            :src="friend.icon"
+            @load="loadImage($event)"
+          >
+          <span>{{ friend.name }}</span>
         </li>
       </ul>
     </div>
@@ -72,6 +50,27 @@
 
 <script>
 export default {
+
+  computed: {
+    channels () {
+      return this.$store.getters.channels
+    },
+
+    active () {
+      return this.$store.state.user.channel
+    },
+
+    friends () {
+      return this.$store.state.user.friends
+    }
+  },
+
+  methods: {
+    loadImage ($event) {
+      $event.target.classList.add('loaded')
+    }
+  }
+
 }
 </script>
 
@@ -106,19 +105,31 @@ export default {
   li {
     @apply p-2;
   }
-
-  & .active {
-    font-weight: 700;
-    @apply text-white rounded;
-    background-color: rgba(255, 255, 255, 0.2);
-  }
+}
+.channels__list .active {
+  font-weight: 700;
+  @apply text-white rounded;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 .friends__list {
+  li {
+    height: 48px;
+    @apply flex items-center;
+  }
   div {
     @apply inline-block;
   }
   img {
-    @apply rounded inline-block ml-1 mr-3;
+    width: 32px;
+    opacity: 0;
+    transition: opacity 1s;
+    @apply rounded inline-block ml-2 mr-3;
+  }
+  img.loaded {
+    opacity: 1;
+  }
+  .active .friend__icon {
+    background-color: #70CC16;
   }
 }
 .friend__icon {
@@ -126,8 +137,5 @@ export default {
   height: 8px;
   border-radius: 50%;
   background-color: #666;
-}
-.friend__icon--active {
-  background-color: #70CC16;
 }
 </style>

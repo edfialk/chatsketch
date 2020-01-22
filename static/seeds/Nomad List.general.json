@@ -1,0 +1,48 @@
+{ 
+  "data": [
+    {
+      "user": {
+        "name": "Jeshua Stout",
+        "icon": "https://i.pravatar.cc/32?img=68"
+      },
+      "date": "2019-10-21T18:24:43.511Z",
+      "text": "@pierrhack I did for 6 days in Iceland"
+    },
+    {
+      "user": {
+        "name": "Harold Adams",
+        "icon": "https://i.pravatar.cc/32?img=70"
+      },
+      "date": "2019-10-22T17:02:00.000Z",
+      "text": "Which country to visit next? This is a photo with my friends - celeberating in Bali emoji__sunglasses",
+      "image": {
+        "name": "my-top-places.png",
+        "src": "/_nuxt/assets/images/my-top-places.png"
+      }
+    },
+    {
+      "user": {
+        "name": "Aada Laine",
+        "icon": "https://i.pravatar.cc/32?img=47"
+      },
+      "date": "yesterday:11:54 PM",
+      "text": "@har_adams wow it's amazing, I want to buy a van and travel next year emoji__bus"
+    },
+    {
+      "user": {
+        "name": "Nala Hester",
+        "icon": "https://i.pravatar.cc/32?img=48"
+      },
+      "date": "today:11:54 AM",
+      "text": "Working from a van in Australia isn't feasible if you need internet. It may have improved over the last years but I spent some time in a camper van around Tasmania and internet was a real problem (and Tasmania is tiny compared to the rest of the country)."
+    },
+    {
+      "user": {
+        "name": "Ramon Bateman",
+        "icon": "https://i.pravatar.cc/32?img=51"
+      },
+      "date": "today:11:59 AM",
+      "text": "@aa_da What's the reason for the van? Saving money or just like to get outside? If you've got a stable source of income you could always do some short term Airbnbs + buy a truck/topper, build a platform in the back. That way you can always convert it back to a truck and sleep in an apartment if you want."
+    }
+  ]
+}

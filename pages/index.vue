@@ -1,19 +1,30 @@
 <template>
   <div class="flex">
-    <Sidebar />
+    <Servers />
     <Channels />
-    <Chat />
+    <Room />
   </div>
 </template>
 
 <script>
 
-import Sidebar from '../components/Sidebar'
+import Servers from '../components/Servers'
 import Channels from '../components/Channels'
-import Chat from '../components/Chat'
+import Room from '../components/Room'
 
 export default {
-  components: { Sidebar, Channels, Chat }
+
+  components: { Servers, Channels, Room },
+
+  async created () {
+    await this.$store.dispatch('load')
+
+    this.$store.dispatch('messages', {
+      server: this.$store.state.user.server.name,
+      channel: this.$store.state.user.channel
+    })
+  }
+
 }
 </script>
 

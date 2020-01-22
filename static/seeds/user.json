@@ -1,0 +1,48 @@
+{
+  "name": "Gordan Freeman",
+  "friends": [
+    {
+      "name": "Orlando Diggs",
+      "icon": "https://i.pravatar.cc/32?img=68",
+      "active": true
+    },
+    {
+      "name": "Carmen Velasco",
+      "icon": "https://i.pravatar.cc/32?img=47",
+      "active": true
+    },
+    {
+      "name": "Marie JensenDiggs",
+      "icon": "https://i.pravatar.cc/32?img=49"
+    },
+    {
+      "name": "Alex Lee",
+      "icon": "https://i.pravatar.cc/32?img=33"
+    },
+    {
+      "name": "Leo Gill",
+      "icon": "https://i.pravatar.cc/32?img=18"
+    },
+    {
+      "name": "Britney Cooper",
+      "icon": "https://i.pravatar.cc/32?img=9"
+    }
+  ],
+  "servers": [
+    {
+      "name": "Nomad List",
+      "image": "logo.png",
+      "channels": ["general", "support", "marketing", "thailand", "bali", "poland", "australia", "jobs", "startups", "italy", "freelance"]
+    },
+    {
+      "name": "Channel 2",
+      "image": "layer-20.png"
+    }
+  ],
+  "server": {
+    "name": "Nomad List",
+    "image": "logo.png",
+    "channels": ["general", "support", "marketing", "thailand", "bali", "poland", "australia", "jobs", "startups", "italy", "freelance"]
+  },
+  "channel": "general"
+}

@@ -14,5 +14,6 @@ module.exports = {
   ignorePatterns: ["./assets/images/*"],
   // add your custom rules here
   rules: {
+    'no-console': 'off'
   }
 }
