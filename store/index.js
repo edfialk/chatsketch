@@ -1,6 +1,7 @@
 export const state = () => ({
   user: {
     name: '',
+    icon: '',
     friends: [],
     servers: [],
     server: null,
@@ -10,16 +11,16 @@ export const state = () => ({
 })
 
 export const mutations = {
-  user (state, user) {
+  SET_USER (state, user) {
     state.user = user
   },
-  server (state, server) {
+  SET_SERVER (state, server) {
     state.user.server = server
   },
-  channel (state, channel) {
+  SET_CHANNEL (state, channel) {
     state.user.channel = channel
   },
-  messages (state, { server, channel, messages }) {
+  SET_MESSAGES (state, { server, channel, messages }) {
     if (!state.servers[server]) {
       state.servers = { ...state.servers, [server]: {} }
     }
@@ -29,6 +30,11 @@ export const mutations = {
     }
 
     state.servers[server][channel] = messages
+  },
+  ADD_MESSAGE (state, message) {
+    if (state.servers[state.user.server.name] && state.servers[state.user.server.name][state.user.channel]) {
+      state.servers[state.user.server.name][state.user.channel].push(message)
+    }
   }
 }
 
@@ -37,7 +43,7 @@ export const actions = {
     return new Promise(async (resolve, reject) => {
       const response = await fetch('/seeds/user.json')
       const user = await response.json()
-      commit('user', user)
+      commit('SET_USER', user)
       resolve()
     })
   },
@@ -46,7 +52,23 @@ export const actions = {
     return new Promise(async (resolve, reject) => {
       const response = await fetch(`/seeds/${server}.${channel}.json`)
       const { data } = await response.json()
-      commit('messages', { server, channel, messages: data })
+      commit('SET_MESSAGES', { server, channel, messages: data })
+      resolve()
+    })
+  },
+
+  submit ({ commit, state }, text) {
+    return new Promise((resolve, reject) => {
+      const message = {
+        user: {
+          name: state.user.name,
+          icon: state.user.icon
+        },
+        date: new Date().toISOString(),
+        text
+      }
+
+      commit('ADD_MESSAGE', message)
       resolve()
     })
   }

@@ -24,7 +24,13 @@
       <div class="icon">
         <font-awesome-icon :icon="['fas', 'microphone']" />
       </div>
-      <input class="chatbox" type="text" placeholder="Message in #general">
+      <input
+        :placeholder="`Message in #${title}`"
+        v-model.trim="userMessage"
+        @keyup.enter="submitMessage"
+        class="chatbox"
+        type="text"
+      >
       <div class="icon">
         <font-awesome-icon :icon="['far', 'smile']" />
       </div>
@@ -39,6 +45,10 @@ export default {
 
   components: { Messages },
 
+  data: () => ({
+    userMessage: ''
+  }),
+
   computed: {
     title () {
       return this.$store.state.user.channel
@@ -46,6 +56,17 @@ export default {
 
     users () {
       return '1,093'
+    }
+  },
+
+  methods: {
+    submitMessage () {
+      if (this.userMessage === '') {
+        return
+      }
+
+      this.$store.dispatch('submit', this.userMessage)
+      this.userMessage = ''
     }
   }
 
@@ -71,6 +92,9 @@ export default {
 .chatroom__footer {
   @apply px-5 flex items-center text-lg;
   // font-size: 14px;
+  .icon {
+    @apply mr-4;
+  }
 }
 .icon {
   position: relative;

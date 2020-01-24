@@ -1,5 +1,5 @@
 <template>
-  <div class="chatroom__body">
+  <div ref="room" @scroll="updateScrollPosition" class="chatroom__body">
     <div v-for="(message, index) in messages" :key="message.date">
       <div v-if="index > 0 && messageIsNewDay(index)" class="chatroom__date">
         <span>{{ message.date | date }}</span>
@@ -31,7 +31,7 @@ export default {
 
   filters: {
     date (value) {
-      if (value.indexOf('/')) {
+      if (value.indexOf('/') > 0) {
         const p = value.split('/')
         if (p[0] === 'yesterday') {
           return 'Yesterday'
@@ -43,13 +43,18 @@ export default {
     },
 
     time (value) {
-      if (value.indexOf('/')) {
+      if (value.indexOf('/') > 0) {
         const p = value.split('/')
         return moment('2020-01-01 ' + p[1]).format('h:mm A')
       }
       return moment(value).format('h:mm A')
     }
   },
+
+  data: () => ({
+    scrollPos: 0,
+    observer: null
+  }),
 
   computed: {
     messages () {
@@ -64,13 +69,24 @@ export default {
     }
   },
 
+  mounted () {
+    const el = this.$refs.room
+    this.observer = new MutationObserver((e) => {
+      if (el.scrollTop <= (el.scrollHeight - el.offsetHeight - 63)) { // client has scrolled up
+        return
+      }
+      el.scrollTop = el.scrollHeight
+    })
+    this.observer.observe(el, { childList: true, subtree: true })
+  },
+
   methods: {
     parse (message) {
       /* eslint-disable */
       const replacements = [
         { '<[^>]+>[^<]+<[^>]+>': '' }, // remove user html
-        { '@[^\\s]+': '<span class="message__ping">$&</span>' },
-        { 'emoji__[^\\s]+': '<span class="$&" />' }
+        { '@[^\\s]+': '<span class="message__ping">$&</span>' }, // user pings
+        { 'emoji__[^\\s]+': '<span class="$&" />' } // emojis
       ]
       /* eslint-enable */
 
@@ -93,15 +109,23 @@ export default {
 
       // I want dates to show up as yesterday/today like design, which I can't do from static date
       // so I store it as "yesterday"/"today"
-      if (currDate.indexOf('yesterday') && !prevDate.indexOf('yesterday')) {
+      if (currDate.includes('yesterday') && !prevDate.includes('yesterday')) {
         return true
       }
 
-      if (prevDate.indexOf('yesterday') && currDate.indexOf('today')) {
+      if (prevDate.includes('yesterday') && currDate.includes('today')) {
         return true
+      }
+
+      if (prevDate.includes('today')) {
+        return false // only for demo, timestamps will be out of order with new msgs
       }
 
       return moment(currDate).isAfter(moment(prevDate), 'day')
+    },
+
+    updateScrollPosition () {
+      this.scrollPos = this.$refs.room.scrollTop
     }
   }
 
