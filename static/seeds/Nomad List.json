@@ -1,5 +1,5 @@
 { 
-  "data": [
+  "general": [
     {
       "user": {
         "name": "Jeshua Stout",
@@ -44,5 +44,16 @@
       "date": "today/11:59 AM",
       "text": "@aa_da What's the reason for the van? Saving money or just like to get outside? If you've got a stable source of income you could always do some short term Airbnbs + buy a truck/topper, build a platform in the back. That way you can always convert it back to a truck and sleep in an apartment if you want."
     }
-  ]
+  ],
+  "support": [],
+  "marketing": [],
+  "thailand": [],
+  "bali": [],
+  "poland": [],
+  "australia": [],
+  "jobs": [],
+  "startups": [],
+  "italy": [],
+  "freelance": []
+
 }

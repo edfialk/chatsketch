@@ -1,13 +1,15 @@
+import Vue from 'vue'
+
 export const state = () => ({
   user: {
     name: '',
     icon: '',
     friends: [],
     servers: [],
-    server: null,
-    channel: null
+    server: '',
+    channel: ''
   },
-  servers: {}
+  rooms: {}
 })
 
 export const mutations = {
@@ -20,26 +22,20 @@ export const mutations = {
   SET_CHANNEL (state, channel) {
     state.user.channel = channel
   },
-  SET_MESSAGES (state, { server, channel, messages }) {
-    if (!state.servers[server]) {
-      state.servers = { ...state.servers, [server]: {} }
-    }
-
-    if (!state.servers[server][channel]) {
-      state.servers[server] = { ...state.servers[server], [channel]: {} }
-    }
-
-    state.servers[server][channel] = messages
+  SET_SERVER_MESSAGES (state, { server, channels }) {
+    Vue.set(state.rooms, server, channels)
   },
   ADD_MESSAGE (state, message) {
-    if (state.servers[state.user.server.name] && state.servers[state.user.server.name][state.user.channel]) {
-      state.servers[state.user.server.name][state.user.channel].push(message)
+    const server = state.servers[state.server.name] || {}
+    const channel = server[state.user.channel]
+    if (channel) {
+      channel.push(message)
     }
   }
 }
 
 export const actions = {
-  load ({ commit, dispatch }) {
+  fetchUser ({ commit, dispatch }) {
     return new Promise(async (resolve, reject) => {
       const response = await fetch('/seeds/user.json')
       const user = await response.json()
@@ -48,12 +44,11 @@ export const actions = {
     })
   },
 
-  messages ({ commit }, { server, channel }) {
+  fetchServer ({ commit }, server) {
     return new Promise(async (resolve, reject) => {
-      const response = await fetch(`/seeds/${server}.${channel}.json`)
-      const { data } = await response.json()
-      commit('SET_MESSAGES', { server, channel, messages: data })
-      resolve()
+      const response = await fetch(`/seeds/${server}.json`)
+      const messages = await response.json()
+      commit('SET_SERVER_MESSAGES', { server, messages })
     })
   },
 
@@ -71,9 +66,18 @@ export const actions = {
       commit('ADD_MESSAGE', message)
       resolve()
     })
+  },
+
+  join ({ commit, state }, channel) {
+    return new Promise((resolve, reject) => {
+      if (channel) {
+        commit('SET_CHANNEL', channel)
+      }
+      resolve()
+    })
   }
 }
 
 export const getters = {
-  channels: state => state.user.server ? state.user.server.channels : []
+  channels: state => state.rooms[state.user.server] ? Object.keys(state.rooms[state.user.server]) : []
 }

@@ -17,12 +17,7 @@ export default {
   components: { Servers, Channels, Room },
 
   async created () {
-    await this.$store.dispatch('load')
-
-    this.$store.dispatch('messages', {
-      server: this.$store.state.user.server.name,
-      channel: this.$store.state.user.channel
-    })
+    await this.$store.dispatch('fetchUser')
   }
 
 }

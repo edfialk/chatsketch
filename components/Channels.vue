@@ -20,6 +20,7 @@
           v-for="channel in channels"
           :key="channel"
           :class="{ active: active == channel}"
+          @click="join(channel)"
         >
           #{{ channel }}
         </li>
@@ -68,6 +69,10 @@ export default {
   methods: {
     loadImage ($event) {
       $event.target.classList.add('loaded')
+    },
+
+    join (channel) {
+      this.$store.dispatch('join', channel)
     }
   }
 
@@ -105,6 +110,9 @@ export default {
   li {
     @apply p-2;
   }
+}
+.channels__list li:hover {
+  cursor: pointer
 }
 .channels__list .active {
   font-weight: 700;

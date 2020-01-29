@@ -1,72 +1,39 @@
 <template>
-  <div ref="room" @scroll="updateScrollPosition" class="chatroom__body">
+  <div ref="room" class="chatroom__body">
     <div v-for="(message, index) in messages" :key="message.date">
-      <div v-if="index > 0 && messageIsNewDay(index)" class="chatroom__date">
+      <div v-if="index > 0 && isNewDay(index)" class="chatroom__date">
         <span>{{ message.date | date }}</span>
       </div>
-      <div class="message">
-        <div class="message__avatar">
-          <img :src="message.user.icon" alt="">
-        </div>
-        <div>
-          <div class="message__info">
-            <span class="message__info__name">{{ message.user.name }}</span>
-            <span class="message__info__date">{{ message.date | time }}</span>
-          </div>
-          <div v-html="parse(message.text)" class="message__text" />
-          <div v-if="message.image" class="message__image">
-            <span class="message__image__link">{{ message.image.name }}</span>
-            <img :src="message.image.src" alt="user image">
-          </div>
-        </div>
-      </div>
+      <Message :message="message" />
     </div>
   </div>
 </template>
 
 <script>
-const moment = require('moment')
+import * as moment from 'moment'
+import { mapState } from 'vuex'
+import Message from './Message'
 
 export default {
 
-  filters: {
-    date (value) {
-      if (value.indexOf('/') > 0) {
-        const p = value.split('/')
-        if (p[0] === 'yesterday') {
-          return 'Yesterday'
-        } else if (p[0] === 'today') {
-          return 'Today'
-        }
-      }
-      return moment(value).format('dddd, MMMM Do')
-    },
-
-    time (value) {
-      if (value.indexOf('/') > 0) {
-        const p = value.split('/')
-        return moment('2020-01-01 ' + p[1]).format('h:mm A')
-      }
-      return moment(value).format('h:mm A')
-    }
-  },
-
-  data: () => ({
-    scrollPos: 0,
-    observer: null
-  }),
+  components: { Message },
 
   computed: {
+
+    ...mapState({
+      server: state => state.user.server,
+      channel: state => state.user.channel,
+      rooms: state => state.rooms
+    }),
+
     messages () {
-      const user = this.$store.state.user
-      const server = user.server
-      const channel = user.channel
-      const servers = this.$store.state.servers
-      if (server && channel && servers[server.name]) {
-        return servers[server.name][channel]
+      const server = this.rooms[this.server]
+      if (server) {
+        return server[this.channel]
       }
       return []
     }
+
   },
 
   mounted () {
@@ -78,25 +45,17 @@ export default {
       el.scrollTop = el.scrollHeight
     })
     this.observer.observe(el, { childList: true, subtree: true })
+
+    if (this.server && this.server.name && this.channel) {
+      this.$store.dispatch('messages', {
+        server: this.server.name,
+        channel: this.channel
+      })
+    }
   },
 
   methods: {
-    parse (message) {
-      /* eslint-disable */
-      const replacements = [
-        { '<[^>]+>[^<]+<[^>]+>': '' }, // remove user html
-        { '@[^\\s]+': '<span class="message__ping">$&</span>' }, // user pings
-        { 'emoji__[^\\s]+': '<span class="$&" />' } // emojis
-      ]
-      /* eslint-enable */
-
-      return replacements.reduce((f, s) => {
-        const re = new RegExp(Object.keys(s)[0], 'gi')
-        return f.replace(re, s[Object.keys(s)[0]])
-      }, message)
-    },
-
-    messageIsNewDay (index) {
+    isNewDay (index) {
       const prev = this.messages[index - 1]
       const curr = this.messages[index]
 
@@ -122,11 +81,8 @@ export default {
       }
 
       return moment(currDate).isAfter(moment(prevDate), 'day')
-    },
-
-    updateScrollPosition () {
-      this.scrollPos = this.$refs.room.scrollTop
     }
+
   }
 
 }

@@ -26,7 +26,7 @@
       </div>
       <input
         :placeholder="`Message in #${title}`"
-        v-model.trim="userMessage"
+        v-model.trim="myMessage"
         @keyup.enter="submitMessage"
         class="chatbox"
         type="text"
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Messages from './Messages'
 
 export default {
@@ -46,27 +47,34 @@ export default {
   components: { Messages },
 
   data: () => ({
-    userMessage: ''
+    myMessage: ''
   }),
 
   computed: {
-    title () {
-      return this.$store.state.user.channel
-    },
-
     users () {
       return '1,093'
-    }
+    },
+
+    ...mapState({
+      title: state => state.user.channel,
+      server: state => state.user.server.name
+    })
   },
+
+  // watch: {
+  //   title (newChannel) {
+  //     this.$store.dispatch('fetchServer', this.server)
+  //   }
+  // },
 
   methods: {
     submitMessage () {
-      if (this.userMessage === '') {
+      if (this.myMessage === '') {
         return
       }
 
-      this.$store.dispatch('submit', this.userMessage)
-      this.userMessage = ''
+      this.$store.dispatch('submit', this.myMessage)
+      this.myMessage = ''
     }
   }
 

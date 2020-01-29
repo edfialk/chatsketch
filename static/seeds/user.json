@@ -29,21 +29,15 @@
       "icon": "https://i.pravatar.cc/32?img=9"
     }
   ],
-  "servers": [
-    {
-      "name": "Nomad List",
+  "servers": {
+    "Nomad List": {
       "image": "logo.png",
       "channels": ["general", "support", "marketing", "thailand", "bali", "poland", "australia", "jobs", "startups", "italy", "freelance"]
     },
-    {
-      "name": "Channel 2",
+    "Channel 2": {
       "image": "layer-20.png"
     }
-  ],
-  "server": {
-    "name": "Nomad List",
-    "image": "logo.png",
-    "channels": ["general", "support", "marketing", "thailand", "bali", "poland", "australia", "jobs", "startups", "italy", "freelance"]
   },
+  "server": "Nomad List",
   "channel": "general"
 }
