@@ -105,15 +105,6 @@ export default {
 </script>
 
 <style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter-active {
-  transition-delay: .5s;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
 .chatroom__body {
   font-size: 14px;
   font-weight: 700;

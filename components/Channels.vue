@@ -82,6 +82,8 @@ export default {
 <style lang="scss">
 
 .channels {
+  width: 262px;
+  background: rgba(37,39,42,0.6);
   padding: 35px 30px;
   color: #B5B5B5;
   & > div {

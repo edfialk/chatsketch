@@ -17,14 +17,19 @@ body {
     background-size: cover;
     font-family: 'Lato', sans-serif;
 }
-.channels {
-    width: 262px;
-    background: rgba(37,39,42,0.6);
-}
-
 .emoji__sunglasses::before {
   content: "\1F60E";
 }
 .emoji__bus::before {
   content: "\1F68C";
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter-active {
+  transition-delay: .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
