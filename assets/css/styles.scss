@@ -22,17 +22,6 @@ body {
     background: rgba(37,39,42,0.6);
 }
 
-.sidebar {
-    background: rgba(0,0,0,0.7);
-    height: 100vh;
-    width: 75px;
-    @apply p-3 flex flex-col items-center;
-}
-  
-.server-list {
-    @apply flex-auto py-5;
-}
-
 .emoji__sunglasses::before {
   content: "\1F60E";
 }

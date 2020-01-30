@@ -35,7 +35,22 @@
       "channels": ["general", "support", "marketing", "thailand", "bali", "poland", "australia", "jobs", "startups", "italy", "freelance"]
     },
     "Channel 2": {
-      "image": "layer-20.png"
+      "image": "server-2.png"
+    },
+    "Channel 3": {
+      "image": "server-3.png"
+    },
+    "Channel 4": {
+      "image": "server-4.png"
+    },
+    "Channel 5": {
+      "image": "server-5.png"
+    },
+    "Channel 6": {
+      "image": "server-6.png"
+    },
+    "Channel 7": {
+      "image": "server-7.png"
     }
   },
   "server": "Nomad List",
