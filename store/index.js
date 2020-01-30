@@ -22,8 +22,8 @@ export const mutations = {
   SET_CHANNEL (state, channel) {
     state.user.channel = channel
   },
-  SET_SERVER_MESSAGES (state, { server, channels }) {
-    Vue.set(state.rooms, server, channels)
+  SET_ROOMS (state, { server, rooms }) {
+    Vue.set(state.rooms, server, rooms)
   },
   ADD_MESSAGE (state, message) {
     const server = state.servers[state.server.name] || {}
@@ -47,8 +47,9 @@ export const actions = {
   fetchServer ({ commit }, server) {
     return new Promise(async (resolve, reject) => {
       const response = await fetch(`/seeds/${server}.json`)
-      const messages = await response.json()
-      commit('SET_SERVER_MESSAGES', { server, messages })
+      const rooms = await response.json()
+      console.log(rooms)
+      commit('SET_ROOMS', { server, rooms })
     })
   },
 

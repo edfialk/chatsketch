@@ -45,7 +45,76 @@
       "text": "@aa_da What's the reason for the van? Saving money or just like to get outside? If you've got a stable source of income you could always do some short term Airbnbs + buy a truck/topper, build a platform in the back. That way you can always convert it back to a truck and sleep in an apartment if you want."
     }
   ],
-  "support": [],
+  "support": [
+    {
+      "user": {
+        "name": "Leo Gill",
+        "icon": "https://randomuser.me/api/portraits/men/32.jpg"
+      },
+      "date": "2019-10-21T18:24:43.511Z",
+      "text": "It's great, can you add a beard though I know somebody who can do this for a reasonable cost make it original, and mmm, exactly like that, but different make the font bigger."
+    },
+    {
+      "user": {
+        "name": "June Cha",
+        "icon": "https://randomuser.me/api/portraits/women/44.jpg"
+      },
+      "date": "2019-10-22T17:02:00.000Z",
+      "text": "Needs to be sleeker the website doesn't have the theme i was going for can you make it look more designed , yet mmm, exactly like that, but different or can you punch up the fun level on these icons you might wanna give it another shot, yet can you make the font bigger?.",
+      "image": {
+        "name": "my-top-places.png",
+        "src": "/_nuxt/assets/images/my-top-places.png"
+      }
+    },
+    {
+      "user": {
+        "name": "Guillermo Raffaele",
+        "icon": "https://randomuser.me/api/portraits/men/46.jpg"
+      },
+      "date": "2019-10-22T17:02:00.000Z",
+      "text": "You can get my logo from facebook we don't need a backup, it never goes down! can it handle a million in one go low resolution? It looks ok on my screen, for give us a complimentary logo along with the website."
+    },
+    {
+      "user": {
+        "name": "Veeti Seppanen",
+        "icon": "https://randomuser.me/api/portraits/men/97.jpg"
+      },
+      "date": "2019-10-23T17:02:00.000Z",
+      "text": "It looks a bit empty, try to make everything bigger do less with more for you can get my logo from facebook could you move it a tad to the left it needs to be the same, but totally different . Can we have another option."
+    },
+    {
+      "user": {
+        "name": "Steve T. Scaife",
+        "icon": "https://tinyfac.es/data/avatars/7D3FA6C0-83C8-4834-B432-6C65ED4FD4C3-500w.jpeg"
+      },
+      "date": "2019-10-25T17:02:00.000Z",
+      "text": "Thanks for taking the time to make the website, but i already made it in wix what is a hamburger menu and can you use a high definition screenshot start on it today and we will talk about what i want next time I like it, but can the snow look a little warmer, for we are your relatives."
+    },
+    {
+      "user": {
+        "name": "Andreas Brixen",
+        "icon": "https://pbs.twimg.com/profile_images/974736784906248192/gPZwCbdS.jpg"
+      },
+      "date": "2019-10-25T17:02:00.000Z",
+      "text": "We have big contacts we will promote you try a more powerful colour. I think we need to start from scratch. The target audience is makes and famles aged zero and up there is too much white space."
+    },
+    {
+      "user": {
+        "name": "Elliana Palacios",
+        "icon": "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+      },
+      "date": "2019-10-26T17:02:00.000Z",
+      "text": "I really think this could go viral you might wanna give it another shot, nor it looks a bit empty, try to make everything bigger, yet this is just a 5 minutes job make it original, for could you rotate the picture to show the other side of the room?"
+    },
+    {
+      "user": {
+        "name": "Eduard Franzan",
+        "icon": "https://randomuser.me/api/portraits/men/86.jpg"
+      },
+      "date": "2019-10-26T17:02:00.000Z",
+      "text": "This turned out different that i decscribed could you do an actual logo instead of a font."
+    }
+  ],
   "marketing": [],
   "thailand": [],
   "bali": [],
@@ -55,5 +124,4 @@
   "startups": [],
   "italy": [],
   "freelance": []
-
 }
