@@ -1,11 +1,13 @@
 <template>
   <div ref="room" class="chatroom__body">
-    <div v-for="(message, index) in messages" :key="message.date">
-      <div v-if="index > 0 && isNewDay(index)" class="chatroom__date">
-        <span>{{ message.date | date }}</span>
+    <transition-group name="fade" tag="div">
+      <div v-for="(message, index) in messages" :key="`${message.user.name}${message.date}`">
+        <div v-if="index > 0 && isNewDay(index)" class="chatroom__date">
+          <span>{{ message.date | date }}</span>
+        </div>
+        <Message :message="message" />
       </div>
-      <Message :message="message" />
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -89,13 +91,22 @@ export default {
 </script>
 
 <style lang="scss">
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter-active {
+  transition-delay: .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 .chatroom__body {
-  @apply p-5 flex-1;
   font-size: 14px;
   font-weight: 700;
   border-bottom: 1px solid rgba(0,0,0,0.12);
   border-top: 1px solid rgba(0,0,0,0.12);
   overflow: auto;
+  @apply p-5 flex-1;
 }
 .message {
   @apply flex items-start mb-3;

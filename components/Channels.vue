@@ -112,9 +112,10 @@ export default {
   }
 }
 .channels__list li:hover {
-  cursor: pointer
+  cursor: pointer;
+   background-color: rgba(255, 255, 255, 0.1);
 }
-.channels__list .active {
+.channels__list li.active {
   font-weight: 700;
   @apply text-white rounded;
   background-color: rgba(255, 255, 255, 0.2);
