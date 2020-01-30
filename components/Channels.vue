@@ -2,7 +2,7 @@
   <div class="channels">
     <div class="flex-spaced">
       <div class="channels__title">
-        <span class="channels__title__text">Nomad List</span>
+        <span class="channels__title__text">{{ server }}</span>
         <span class="channels__title__icon"><font-awesome-icon :icon="['fas', 'chevron-down']" /></span>
       </div>
       <font-awesome-icon :icon="['fas', 'cog']" />
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
 
   computed: {
@@ -57,13 +59,11 @@ export default {
       return this.$store.getters.channels
     },
 
-    active () {
-      return this.$store.state.user.channel
-    },
-
-    friends () {
-      return this.$store.state.user.friends
-    }
+    ...mapState({
+      active: state => state.user.channel,
+      friends: state => state.user.friends,
+      server: state => state.user.server
+    })
   },
 
   methods: {
@@ -91,6 +91,7 @@ export default {
   }
 }
 .channels__title {
+  cursor: pointer;
   .channels__title__text {
     font-size: 20px;
     font-weight: 700;
