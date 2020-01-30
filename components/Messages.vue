@@ -1,5 +1,5 @@
 <template>
-  <div ref="room" class="chatroom__body">
+  <div ref="room" :class="{ 'overflow-hidden': isTransitioning }" class="chatroom__body">
     <transition-group name="fade" tag="div">
       <div v-for="(message, index) in messages" :key="`${message.user.name}${message.date}`">
         <div v-if="index > 0 && isNewDay(index)" class="chatroom__date">
@@ -20,6 +20,10 @@ export default {
 
   components: { Message },
 
+  data: () => ({
+    isTransitioning: false
+  }),
+
   computed: {
 
     ...mapState({
@@ -36,6 +40,16 @@ export default {
       return []
     }
 
+  },
+
+  watch: {
+    channel (newChannel) {
+      console.log('new channel!')
+      this.isTransitioning = true
+      setTimeout(() => {
+        this.isTransitioning = false
+      }, 1000) // animation duration
+    }
   },
 
   mounted () {
@@ -107,6 +121,9 @@ export default {
   border-top: 1px solid rgba(0,0,0,0.12);
   overflow: auto;
   @apply p-5 flex-1;
+}
+.chatroom__body.overflow-hidden {
+  overflow: hidden!important;
 }
 .message {
   @apply flex items-start mb-3;
