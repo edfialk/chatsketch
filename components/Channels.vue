@@ -72,7 +72,7 @@ export default {
     },
 
     join (channel) {
-      this.$store.dispatch('join', channel)
+      this.$store.dispatch('changeChannel', channel)
     }
   }
 

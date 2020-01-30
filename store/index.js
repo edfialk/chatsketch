@@ -68,10 +68,19 @@ export const actions = {
     })
   },
 
-  join ({ commit, state }, channel) {
+  changeChannel ({ commit, state }, channel) {
     return new Promise((resolve, reject) => {
       if (channel) {
         commit('SET_CHANNEL', channel)
+      }
+      resolve()
+    })
+  },
+
+  changeServer ({ commit }, server) {
+    return new Promise((resolve, reject) => {
+      if (server) {
+        commit('SET_SERVER', server)
       }
       resolve()
     })

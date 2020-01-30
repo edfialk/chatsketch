@@ -3,7 +3,12 @@
     <img src="../assets/images/dots-os.png">
     <div class="server__list">
       <div v-for="(server, name) in servers" :key="name">
-        <img :src="getImage(server)" :alt="name" :class="{ active: name === active }">
+        <img
+          :src="getImage(server)"
+          :alt="name"
+          :class="{ active: name === active }"
+          @click="onClickServer(name)"
+        >
       </div>
     </div>
     <font-awesome-icon :icon="['fas', 'plus-circle']" color="#454444" style="font-size: 40px;" />
@@ -38,6 +43,9 @@ export default {
     },
     getImage (server) {
       return require(`../assets/images/${server.image}`)
+    },
+    onClickServer (name) {
+      this.$store.dispatch('changeServer', name)
     }
   }
 
