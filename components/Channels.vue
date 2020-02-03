@@ -1,10 +1,20 @@
 <template>
   <div class="channels">
     <div class="flex-spaced">
-      <div class="channels__title">
-        <span class="channels__title__text">{{ server }}</span>
-        <span class="channels__title__icon"><font-awesome-icon :icon="['fas', 'chevron-down']" /></span>
-      </div>
+      <Dropdown class="channels__title">
+        {{ server }}
+        <font-awesome-icon :icon="['fas', 'chevron-down']" size="sm" class="ml-2" />
+        <template v-slot:options>
+          <button
+            v-for="server in otherServers"
+            :key="server"
+            @click="onClickServer(server)"
+            class="dropdown__options"
+          >
+            {{ server }}
+          </button>
+        </template>
+      </Dropdown>
       <font-awesome-icon :icon="['fas', 'cog']" />
     </div>
     <div>
@@ -51,8 +61,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import Dropdown from './Dropdown'
 
 export default {
+
+  components: { Dropdown },
 
   computed: {
     channels () {
@@ -62,8 +75,13 @@ export default {
     ...mapState({
       active: state => state.user.channel,
       friends: state => state.user.friends,
-      server: state => state.user.server
-    })
+      server: state => state.user.server,
+      servers: state => state.user.servers
+    }),
+
+    otherServers () {
+      return Object.keys(this.servers).filter(k => k !== this.server)
+    }
   },
 
   methods: {
@@ -73,6 +91,10 @@ export default {
 
     join (channel) {
       this.$store.dispatch('changeChannel', channel)
+    },
+
+    onClickServer (server) {
+      this.$store.dispatch('changeServer', server)
     }
   }
 
@@ -92,13 +114,14 @@ export default {
 }
 .channels__title {
   cursor: pointer;
-  .channels__title__text {
-    font-size: 20px;
-    font-weight: 700;
-    @apply text-white;
-  }
-  .channels__title__icon {
-    font-size: 14px;
+  font-size: 20px;
+  font-weight: 700;
+  @apply text-white;
+}
+.dropdown__options {
+  @apply block p-3 w-full text-left;
+  &:hover {
+    @apply bg-gray-300;
   }
 }
 .channels-block {

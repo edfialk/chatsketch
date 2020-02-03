@@ -31,25 +31,24 @@
   ],
   "servers": {
     "Nomad List": {
-      "image": "logo.png",
-      "channels": ["general", "support", "marketing", "thailand", "bali", "poland", "australia", "jobs", "startups", "italy", "freelance"]
+      "image": "logo.png"
     },
-    "Channel 2": {
+    "Server 2": {
       "image": "server-2.png"
     },
-    "Channel 3": {
+    "Server 3": {
       "image": "server-3.png"
     },
-    "Channel 4": {
+    "Server 4": {
       "image": "server-4.png"
     },
-    "Channel 5": {
+    "Server 5": {
       "image": "server-5.png"
     },
-    "Channel 6": {
+    "Server 6": {
       "image": "server-6.png"
     },
-    "Channel 7": {
+    "Server 7": {
       "image": "server-7.png"
     }
   },

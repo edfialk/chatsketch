@@ -33,3 +33,19 @@ body {
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+.slide-enter-active, .slide-leave-active {
+  transition: all .3s ease-out;
+  transform-origin: top center;
+  // transition-timing-function: ease-in;
+}
+
+.slide-enter-to, .slide-leave {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.slide-enter, .slide-leave-to {
+  transform: scaleY(0.7);
+  opacity: 0;
+}

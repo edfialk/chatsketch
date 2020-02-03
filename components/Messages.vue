@@ -44,7 +44,6 @@ export default {
 
   watch: {
     channel (newChannel) {
-      console.log('new channel!')
       this.isTransitioning = true
       setTimeout(() => {
         this.isTransitioning = false
