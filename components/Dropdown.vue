@@ -109,6 +109,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// try and force hardware acceleration
 * {
   will-change: height;
   transform: translateZ(0);
