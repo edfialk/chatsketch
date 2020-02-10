@@ -123,6 +123,9 @@ export default {
   &:hover {
     @apply bg-gray-300;
   }
+  &:last-child {
+    @apply rounded-b-lg;
+  }
 }
 .channels-block {
   font-size: 14px;
