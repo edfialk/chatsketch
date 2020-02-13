@@ -1,5 +1,11 @@
 <template>
-  <div class="dropdown relative inline-block">
+  <div
+    :class="{
+      'left': pos == 'left',
+      'right': pos == 'right'
+    }"
+    class="dropdown relative inline-block"
+  >
     <button ref="trigger" @click="isOpen = !isOpen" class="dropdown__trigger">
       <slot />
     </button>
@@ -11,10 +17,6 @@
       name="dropdown"
     >
       <div
-        :class="{
-          'left-0': pos == 'left',
-          'right-0': pos == 'right'
-        }"
         v-if="isOpen"
         class="dropdown__popup"
       >
@@ -54,9 +56,12 @@ export default {
 
   methods: {
     enter (element) {
-      const width = getComputedStyle(element).width
+      const trigger = this.$refs.trigger
+      this.$el.style.height = getComputedStyle(trigger).height
 
-      element.style.width = width
+      const optionsWidth = getComputedStyle(element).width
+
+      element.style.width = optionsWidth
       element.style.position = 'absolute'
       element.style.visibility = 'hidden'
       element.style.height = 'auto'
@@ -80,7 +85,22 @@ export default {
       // to `0` in the line above.
       setTimeout(() => {
         element.style.height = height
-        this.$refs.trigger.classList.add('open')
+
+        this.$el.classList.add('open')
+
+        const triggerStyle = getComputedStyle(trigger)
+        const offset = parseFloat(triggerStyle.height) -
+                       parseFloat(triggerStyle.paddingBottom) -
+                       parseFloat(triggerStyle.borderBottomWidth)
+        element.style.top = offset + 'px'
+
+        if (parseFloat(optionsWidth) > parseFloat(triggerStyle.width)) {
+          trigger.style.width = optionsWidth
+          element.style.width = optionsWidth
+        } else {
+          element.style.width = triggerStyle.width
+          trigger.style.width = triggerStyle.width
+        }
       })
     },
     afterEnter (element) {
@@ -101,7 +121,9 @@ export default {
       })
     },
     afterLeave (element) {
-      this.$refs.trigger.classList.remove('open')
+      const trigger = this.$refs.trigger
+      this.$el.classList.remove('open')
+      trigger.style.width = null
     }
   }
 
@@ -109,31 +131,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// try and force hardware acceleration
+try and force hardware acceleration
 * {
-  will-change: height;
+  will-change: height, width;
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
-}
-.dropdown__trigger {
-  // transition: background-color .5s ease;
-  @apply relative z-10 block overflow-hidden p-3;
-  &:focus {
-    @apply outline-none border-white;
-  }
-  &.open {
-    @apply bg-white text-black rounded-t-lg shadow;
-  }
-}
-.dropdown__popup {
-  @apply border-b text-black text-sm absolute w-full bg-white rounded-b-lg shadow-xl;
-}
-.dropdown-enter-active, .dropdown-leave-active {
-  transition: height .3s ease-in-out;
-  overflow: hidden;
-}
-.dropdown-enter, .dropdown-leave-to {
-  height: 0;
 }
 </style>

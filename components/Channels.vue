@@ -9,13 +9,19 @@
             v-for="server in otherServers"
             :key="server"
             @click="onClickServer(server)"
-            class="dropdown__options"
           >
             {{ server }}
           </button>
         </template>
       </Dropdown>
-      <font-awesome-icon :icon="['fas', 'cog']" />
+      <Dropdown pos="right" class="text-right">
+        <font-awesome-icon :icon="['fas', 'cog']" />
+        <template v-slot:options>
+          <button>Settings</button>
+          <hr>
+          <button>Leave Server</button>
+        </template>
+      </Dropdown>
     </div>
     <div>
       <font-awesome-icon :icon="['fas', 'comment-dots']" style="margin-right: 10px;" /> All threads
@@ -117,15 +123,6 @@ export default {
   font-size: 20px;
   font-weight: 700;
   @apply text-white;
-}
-.dropdown__options {
-  @apply block p-3 w-full text-left;
-  &:hover {
-    @apply bg-gray-300;
-  }
-  &:last-child {
-    @apply rounded-b-lg;
-  }
 }
 .channels-block {
   font-size: 14px;

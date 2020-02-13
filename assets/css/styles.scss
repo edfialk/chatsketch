@@ -17,6 +17,7 @@ body {
     background-size: cover;
     font-family: 'Lato', sans-serif;
 }
+
 .emoji__sunglasses::before {
   content: "\1F60E";
 }
@@ -32,4 +33,55 @@ body {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.dropdown__popup {
+  min-width: 100%;
+  box-shadow: 0 50px 50px -12px rgba(0, 0, 0, .6);
+  @apply text-black text-sm absolute z-50 bg-white border rounded-b-lg whitespace-no-wrap;
+  button {
+    @apply block p-3 w-full text-left;
+    &:hover {
+      @apply bg-gray-300;
+    }
+    &:last-child {
+      @apply rounded-b-lg;
+    }
+  }
+}
+.dropdown__trigger:focus{
+  @apply outline-none;
+}
+.dropdown.open .dropdown__trigger {
+  text-align: inherit;
+  padding: 12px;
+  top: -12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .6);
+  @apply bg-white text-black rounded-t-lg absolute z-10 border whitespace-no-wrap;
+}
+.dropdown.left {
+  text-align: left;
+  .dropdown__trigger {
+    left: -12px;
+  }
+  .dropdown__popup {
+    left: -12px;
+  }
+}
+.dropdown.right {
+  text-align: right;
+  .dropdown__trigger {
+    right: -12px;
+  }
+  .dropdown__popup {
+    right: -12px;
+  }
+}
+
+.dropdown-enter-active, .dropdown-leave-active {
+  transition: height .3s ease-in-out;
+  overflow: hidden;
+}
+.dropdown-enter, .dropdown-leave-to {
+  height: 0;
 }
