@@ -40,6 +40,16 @@ export default {
     isOpen: false
   }),
 
+  watch: {
+    isOpen (newval, oldval) {
+      if (newval) {
+        addEventListener('click', this.outsideClickListener)
+      } else {
+        removeEventListener('click', this.outsideClickListener)
+      }
+    }
+  },
+
   created () {
     const handleEscape = (e) => {
       if (e.key === 'Esc' || e.key === 'Escape') {
@@ -51,10 +61,17 @@ export default {
 
     this.$once('hook:beforeDestroy', () => {
       removeEventListener('keydown', handleEscape)
+      removeEventListener('click', this.outsideClickListener)
     })
   },
 
   methods: {
+    outsideClickListener (e) {
+      if (!this.$el.contains(event.target)) { // or use: event.target.closest(selector) === null
+        this.isOpen = false
+      }
+    },
+
     enter (element) {
       const trigger = this.$refs.trigger
       this.$el.style.height = getComputedStyle(trigger).height
