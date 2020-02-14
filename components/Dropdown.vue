@@ -67,7 +67,7 @@ export default {
 
   methods: {
     outsideClickListener (e) {
-      if (!this.$el.contains(event.target)) { // or use: event.target.closest(selector) === null
+      if (!this.$el.contains(event.target)) {
         this.isOpen = false
       }
     },
